@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import cookie from "cookie";
+import Cookies from "js-cookie";
 import axios from "../../axios";
 
 export const SignUp = createAsyncThunk(
@@ -18,10 +18,11 @@ export const SignIn = createAsyncThunk(
   "Auth/SignIn",
   async (formdata, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post("/auth/jwt/tokens", formdata);
+      const res = await axios.post("/auth/jwt/tokens", formdata);
 
-      return data;
+      return res.data;
     } catch (error) {
+      console.log(error);
       rejectWithValue(error.message);
     }
   }

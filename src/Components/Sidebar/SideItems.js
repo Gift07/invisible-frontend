@@ -1,6 +1,6 @@
 import React from "react";
 import { TbLayoutDashboard, TbChartInfographic } from "react-icons/tb";
-import { BsPeople } from "react-icons/bs";
+import { BsPeople, BsCalendarDate } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
 const SideItems = ({ open }) => {
@@ -28,6 +28,31 @@ const SideItems = ({ open }) => {
           link: "/stages",
           icon: <TbLayoutDashboard />,
         },
+        {
+          name: "Calendar",
+          link: "/calendar",
+          icon: <BsCalendarDate />,
+        },
+      ],
+    },
+    {
+      title: "Analtycs",
+      components: [
+        {
+          name: "Reports",
+          link: "/reports",
+          icon: <TbLayoutDashboard />,
+        },
+        {
+          name: "Templates",
+          link: "/templates",
+          icon: <BsPeople />,
+        },
+        {
+          name: "Social Media",
+          link: "/social Media",
+          icon: <BsPeople />,
+        },
       ],
     },
   ];
@@ -43,7 +68,6 @@ const SideItems = ({ open }) => {
           <ul>
             {item.components.map((component, i) => (
               <li key={i} className="my-2">
-                {console.log(i)}
                 <NavLink
                   to={component.link}
                   className={({ isActive }) =>
@@ -54,9 +78,9 @@ const SideItems = ({ open }) => {
                 >
                   <span>{component.icon}</span>
                   <h1
-                    className={`whitespace-pre ${
-                      !open &&
-                      "opacity-0 translate-x-28 overflow-hidden duration-300"
+                    style={{ transitionDelay: `${i + 2}00ms` }}
+                    className={`whitespace-pre duration-300 ${
+                      !open && "opacity-0 translate-x-28 overflow-hidden"
                     }`}
                   >
                     {component.name}

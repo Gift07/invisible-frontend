@@ -5,12 +5,31 @@ import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
-import { HiOutlineUser } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { SignIn } from "../Features/Auth/action";
+import { Bars } from "react-loader-spinner";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
+  const [formdata, setFormdata] = useState({
+    Email: "",
+    Password: "",
+  });
+
+  const { isAuthenticated, error, auth_loading } = useSelector(
+    (state) => state.Auth
+  );
+  const handleChange = (event) => {
+    setFormdata({ ...formdata, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(SignIn(formdata));
+  };
   const navigate = useNavigate();
   return (
     <div className="w-screen h-screen flex font-poppins">
@@ -46,13 +65,19 @@ const Login = () => {
           <h1 className="text-lg font-semibold">Wolfs agency</h1>
           <h1 className="text-xl py-2 font-medium">Login</h1>
         </div>
-        <form className="w-full flex flex-col items-center justify-center py-6">
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className="w-full flex flex-col items-center justify-center py-6"
+        >
           <div className="w-8/12 flex items-center rounded-lg px-4 py-2 gap-x-2 border border-gray-500 bg-blue-50 my-2">
             <div className="text-lg text-blue-800">
               <AiOutlineMail />
             </div>
             <input
               placeholder="Enter email"
+              name="Email"
+              value={formdata.Email}
+              onChange={(e) => handleChange(e)}
               type={"email"}
               className="outline-none w-full p-2 rounded-lg text-xs bg-blue-50"
             />
@@ -67,6 +92,9 @@ const Login = () => {
             </div>
             <input
               placeholder="Enter password"
+              name="Password"
+              value={formdata.Password}
+              onChange={(e) => handleChange(e)}
               type={showPassword ? "text" : "password"}
               className="outline-none w-full p-2 rounded-lg text-xs bg-blue-50"
             />
@@ -75,9 +103,27 @@ const Login = () => {
             <h1>Forgot password?</h1>
           </div>
           <div className="w-full flex items-center justify-center">
-            <button className="w-8/12 bg-blue-500 text-sm uppercase py-2 rounded-xl text-white hover:bg-blue-600 active:bg-blue-700 duration-300">
-              sign in
-            </button>
+            {auth_loading ? (
+              <button className="w-8/12 py-2 text-sm flex items-center justify-center bg-blue-500 rounded-xl gap-x-3">
+                <Bars
+                  height="16"
+                  width="16"
+                  color="#fff"
+                  ariaLabel="bars-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                />
+                <h1 className="text-white">Loading...</h1>
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="w-8/12 bg-blue-500 text-sm uppercase py-2 rounded-xl text-white hover:bg-blue-600 active:bg-blue-700 duration-300"
+              >
+                sign in
+              </button>
+            )}
           </div>
           <div
             onClick={() => navigate("/accounts/sign-up")}

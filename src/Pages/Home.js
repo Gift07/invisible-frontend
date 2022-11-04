@@ -10,7 +10,7 @@ import {
 const Home = () => {
   return (
     <React.Fragment>
-      <div className="px-8 pt-3 relative">
+      <div className="px-8 pt-3">
         <div>
           <h1 className="font-semibold uppercase text-[#505d69]">Dashboard</h1>
         </div>

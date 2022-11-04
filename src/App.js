@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
+import Calendar from "./Pages/Calendar";
 import Compaigns from "./Pages/Compaigns";
 import Controller from "./Pages/Controller";
 import Customers from "./Pages/Customers";
@@ -16,6 +17,7 @@ function App() {
           <Route path="customers" element={<Customers />} />
           <Route path="stages" element={<Stages />} />
           <Route path="compaigns" element={<Compaigns />} />
+          <Route path="calendar" element={<Calendar />} />
         </Route>
         <Route path="accounts/sign-in" element={<Login />} />
         <Route path="accounts/sign-up" element={<Register />} />

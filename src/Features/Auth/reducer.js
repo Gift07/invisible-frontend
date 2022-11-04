@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SignUp } from "./action";
+import { SignIn, SignUp } from "./action";
 
 const initialState = {
   company_name: "",
@@ -26,6 +26,17 @@ const authSlice = createSlice({
       .addCase(SignUp.rejected, (state, action) => {
         state.auth_loading = false;
         state.error = action.payload.message;
+      })
+      .addCase(SignIn.pending, (state) => {
+        state.auth_loading = true;
+      })
+      .addCase(SignIn.fulfilled, (state, action) => {
+        state.auth_loading = false;
+        state.isAuthenticated = true;
+      })
+      .addCase(SignIn.rejected, (state, action) => {
+        state.auth_loading = false;
+        state.error = action.payload;
       });
   },
 });

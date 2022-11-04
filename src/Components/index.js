@@ -7,3 +7,6 @@ export const { default: RevenueAnalytics } = require("./Home/RevenueAnalytics");
 export const { default: Subscribers } = require("./Home/Subscribers");
 export const { default: Footer } = require("./Footer");
 export const { default: NavDropdown } = require("./Home/NavDropdown");
+export const { default: EventsCard } = require("./Calendar/EventsCard");
+export const { default: CompaingsCard } = require("./Compaigns/CompaingsCard");
+export const { default: ComppaignTable } = require("./Tables/Compaigns");
